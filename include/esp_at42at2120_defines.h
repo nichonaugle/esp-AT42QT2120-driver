@@ -4,7 +4,7 @@
 #define AT42QT2120_SLAVE_ADDRESS 0x1C
 
 /* Defined Registers for AT42QT2120 */
-#define AT42QT2120_REG_CHIP_ID 0x00             // Register that stores the chip ID (IS ALWAYS 0x3E)
+#define AT42QT2120_REG_CHIP_ID 0x00             // Register that stores the chip ID (Always 0x3E)
 #define AT42QT2120_REG_DETECTION_STATUS 0x02    // Register that stores bits that indicate individual status
 #define AT42QT2120_REG_SLIDER_POSITION 0x05     // Register that stores the slider value (0-255)
 #define AT42QT2120_REG_CALIBRATE 0x06           // Register that drives calibration cycle if written to

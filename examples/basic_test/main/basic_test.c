@@ -45,24 +45,20 @@ void app_main(void) {
 
     /* Reset Slider */
     ESP_LOGI(TAG, "Reseting ....");
-    uint8_t write_buf = 0xFF;
-    at42qt2120_register_write(&Slider_Handle, AT42QT2120_REG_RESET, &write_buf, 1);
-    vTaskDelay(pdMS_TO_TICKS(100));
+    at42qt2120_reset(&Slider_Handle);
 
     /* Enable Slider */
-    ESP_LOGI(TAG, "Enabling ....");
-    write_buf = 0x80;
-    at42qt2120_register_write(&Slider_Handle, AT42QT2120_REG_SLIDER_OPTIONS, &write_buf, 1);
+    ESP_LOGI(TAG, "Enabling Slider ....");
+    at42qt2120_enable_slider(&Slider_Handle);
 
     /* Calibrate */
     ESP_LOGI(TAG, "Calibrating ....");
-    write_buf = 0xFF;
-    at42qt2120_register_write(&Slider_Handle, AT42QT2120_REG_CALIBRATE, &write_buf, 1);
-    vTaskDelay(pdMS_TO_TICKS(100));
+    at42qt2120_calibrate(&Slider_Handle);
     
+    /* Continuously read for slider position */
     uint8_t Position = 0;
     for (;;) {
-        at42qt2120_register_read(&Slider_Handle, AT42QT2120_REG_SLIDER_POSITION, &Position, 1);
+        at42qt2120_read_slider_position(&Slider_Handle, &Position);
         ESP_LOGI(TAG, "%d", Position);
         vTaskDelay(pdMS_TO_TICKS(10));
     }

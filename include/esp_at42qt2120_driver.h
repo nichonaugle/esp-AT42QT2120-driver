@@ -46,4 +46,62 @@ esp_err_t at42qt2120_register_read(at42qt2120_handle_t* at42qt2120_handle, uint8
  */
 esp_err_t at42qt2120_register_write(at42qt2120_handle_t* at42qt2120_handle, uint8_t reg_to_write, uint8_t* write_buf, uint8_t write_buf_size);
 
+/**
+ * @brief Reads the at42qt2120 device's detection byte. The purpose of specifc bits can be referenced in the at42qt2120 device's datasheet
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @param status_buf Buffer to store the detection status as a single byte.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_read_detection_status(at42qt2120_handle_t* at42qt2120_handle, uint8_t* status_buf);
+
+/**
+ * @brief Reads the at42qt2120 device's slider position. If slider is disabled then the value is always 0
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @param position_buf Buffer to store the slider position as a single byte.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_read_slider_position(at42qt2120_handle_t* at42qt2120_handle, uint8_t* position_buf);
+
+/**
+ * @brief Starts the calibration cycle of the at42qt2120 device.
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_calibrate(at42qt2120_handle_t* at42qt2120_handle);
+
+/**
+ * @brief Resets the at42qt2120 device to initial state.
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_reset(at42qt2120_handle_t* at42qt2120_handle);
+
+/**
+ * @brief Enables the slider option for the at42qt2120 device
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_enable_slider(at42qt2120_handle_t* at42qt2120_handle);
+
+/**
+ * @brief Enables the wheel option for the at42qt2120 device
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_enable_wheel(at42qt2120_handle_t* at42qt2120_handle);
+
+/**
+ * @brief Disables the slider option or wheel option for the at42qt2120 device
+ *
+ * @param at42qt2120_handle Pointer to the at42qt2120 handle structure.
+ * @return esp_err_t ESP_OK on success, otherwise an error code.
+ */
+esp_err_t at42qt2120_disable_slider_wheel(at42qt2120_handle_t* at42qt2120_handle);
+
 #endif
