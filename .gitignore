@@ -54,3 +54,4 @@ dkms.conf
 
 build/
 sdkconfig.old
+examples/*/managed_components/
