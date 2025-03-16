@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include "esp_err.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "driver/i2c_master.h"
+#include <esp_err.h>
+#include <esp_log.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include <driver/i2c_master.h>
+
 #include "esp_at42qt2120_driver.h"
-#include "esp_at42at2120_defines.h"
+#include "esp_at42qt2120_defines.h"
 
 static const char* TAG = "esp_at42qt2120_driver";
 

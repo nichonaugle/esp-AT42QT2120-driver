@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "driver/gpio.h"
-#include "driver/i2c_master.h"
-#include "esp_err.h"
-#include "esp_log.h"
+#include <driver/gpio.h>
+#include <driver/i2c_master.h>
+#include <esp_err.h>
+#include <esp_log.h>
 #include <freertos/FreeRTOS.h>
-#include "freertos/task.h"
+#include <freertos/task.h>
+
 #include "esp_at42qt2120_driver.h"
-#include "esp_at42at2120_defines.h"
 #include "iot_button.h"
 
 #define I2C_MASTER_PORT I2C_NUM_0 

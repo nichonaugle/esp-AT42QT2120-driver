@@ -1,4 +1,8 @@
-#include "esp_at42qt2120_driver.h"
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Defined preset I2C compatible address (IS NOT BE CHANGEABLE) */
 #define AT42QT2120_SLAVE_ADDRESS 0x1C
@@ -10,3 +14,7 @@
 #define AT42QT2120_REG_CALIBRATE 0x06           // Register that drives calibration cycle if written to
 #define AT42QT2120_REG_RESET 0x07               // Register that drives reset cycle if written to
 #define AT42QT2120_REG_SLIDER_OPTIONS 0x0E      // Register that determines if a slider/wheel is enabled (disabled by default)
+
+#ifdef __cplusplus
+}
+#endif

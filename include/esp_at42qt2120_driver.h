@@ -1,8 +1,8 @@
 #ifndef ESP_AT42QT2120_DRIVER_H
 #define ESP_AT42QT2120_DRIVER_H
 
-#include "esp_err.h"
-#include "driver/i2c_master.h"
+#include <esp_err.h>
+#include <driver/i2c_master.h>
 
 #ifdef __cplusplus
 extern "C" {
