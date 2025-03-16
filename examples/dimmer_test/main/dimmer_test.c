@@ -13,6 +13,8 @@
 #define I2C_MASTER_SDA_IO 6
 #define I2C_MASTER_SCL_IO 7
 #define NCHANGE_PIN 22
+#define SHORT_PRESS_TIME_MS 50
+#define LONG_PRESS_TIME_MS 200
 
 #define CONFIG_LOG_MAXIMUM_LEVEL ESP_LOG_VERBOSE
 
@@ -85,8 +87,10 @@ esp_err_t nchange_button_init(void) {
         .gpio_button_config = {
             .gpio_num = NCHANGE_PIN,
             .active_level = 0,
-            .disable_pull = false
-        }
+            .disable_pull = true
+        },
+        .short_press_time = SHORT_PRESS_TIME_MS, // In milliseconds
+        .long_press_time = LONG_PRESS_TIME_MS  // In milliseconds
     };
 
     /* Initialize nchange handle based on configuration */ 
@@ -99,11 +103,7 @@ esp_err_t nchange_button_init(void) {
     /* Register events to functions */
     iot_button_register_cb(nchange_handle, BUTTON_PRESS_DOWN, _single_press_event, NULL);
     iot_button_register_cb(nchange_handle, BUTTON_SINGLE_CLICK, _single_click_event, NULL);
-    button_event_config_t long_press_config = {
-        .event = BUTTON_LONG_PRESS_START,
-        .event_data.long_press = {200} // in milliseconds
-    };
-    iot_button_register_event_cb(nchange_handle, long_press_config, _long_press_event, NULL);
+    iot_button_register_cb(nchange_handle, BUTTON_LONG_PRESS_START, _long_press_event, NULL);
 
     return ESP_OK;
 }
