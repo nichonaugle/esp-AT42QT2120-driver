@@ -4,6 +4,10 @@
 #include "esp_err.h"
 #include "driver/i2c_master.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Structure representing a at42qt2120 handle.
  */
@@ -103,5 +107,9 @@ esp_err_t at42qt2120_enable_wheel(at42qt2120_handle_t* at42qt2120_handle);
  * @return esp_err_t ESP_OK on success, otherwise an error code.
  */
 esp_err_t at42qt2120_disable_slider_wheel(at42qt2120_handle_t* at42qt2120_handle);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
