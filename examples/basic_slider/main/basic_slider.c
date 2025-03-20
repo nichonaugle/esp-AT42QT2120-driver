@@ -5,13 +5,12 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_at42qt2120_driver.h"
-#include "esp_at42at2120_defines.h"
+#include "esp_at42qt2120_defines.h"
 
 #define I2C_MASTER_PORT I2C_NUM_0 
 #define I2C_MASTER_SDA_IO 6
 #define I2C_MASTER_SCL_IO 7
 #define CONFIG_LOG_MAXIMUM_LEVEL ESP_LOG_VERBOSE
-#define CONFIG_FREERTOS_HZ 1000
 
 static const char* TAG = "MAIN";
 

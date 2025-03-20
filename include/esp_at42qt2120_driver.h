@@ -14,7 +14,7 @@ extern "C" {
 typedef struct {
     i2c_device_config_t device_config;      // I2C device configuration (Contains i2c address, address bit length, and clock speed)
     i2c_master_dev_handle_t device_handle;  // I2C device handle
-    int transaction_timeout_ms;             // Timeout for I2C transactions in milliseconds
+    int transaction_timeout_ms;             // Timeout for I2C transactions in milliseconds (-1 results in an infinite wait time)
 } at42qt2120_handle_t;
 
 /**

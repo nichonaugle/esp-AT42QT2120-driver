@@ -10,6 +10,9 @@
 
 static const char* TAG = "esp_at42qt2120_driver";
 
+/**
+  * @brief Initializes the AT42QT2120 touch sensor on the I2C bus.
+  */
 esp_err_t at42qt2120_init(i2c_master_bus_handle_t* bus_handle, at42qt2120_handle_t* at42qt2120_handle, size_t clock_speed, int time_out) {
     /* Error checking for input parameters */
     if (at42qt2120_handle == NULL) {
@@ -38,6 +41,9 @@ esp_err_t at42qt2120_init(i2c_master_bus_handle_t* bus_handle, at42qt2120_handle
 }
 
 /* Basic Read and Write functions for at42at2120 */
+/**
+  * @brief Reads a register from the AT42QT2120.
+  */
 esp_err_t at42qt2120_register_read(at42qt2120_handle_t* at42qt2120_handle, uint8_t reg_to_read, uint8_t* read_buf, uint8_t read_buf_size) {
     /* Error checking for input parameters */
     if (at42qt2120_handle == NULL) {
@@ -50,10 +56,12 @@ esp_err_t at42qt2120_register_read(at42qt2120_handle_t* at42qt2120_handle, uint8
         return ESP_ERR_INVALID_ARG;
     }
 
-
     return i2c_master_transmit_receive(at42qt2120_handle->device_handle, &reg_to_read, 1, read_buf, read_buf_size, at42qt2120_handle->transaction_timeout_ms);
 }
 
+/**
+  * @brief Writes data to a register in the AT42QT2120.
+  */
 esp_err_t at42qt2120_register_write(at42qt2120_handle_t* at42qt2120_handle, uint8_t reg_to_write, uint8_t* write_buf, uint8_t write_buf_size) {
     /* Error checking for input parameters */
     if (at42qt2120_handle == NULL) {
