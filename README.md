@@ -25,7 +25,7 @@ To initialize the AT42QT2120, call the `at42qt2120_init()` function with the I2C
 ```c
 at42qt2120_handle_t at42qt2120;
 i2c_master_bus_handle_t i2c_bus;
-at42qt2120_init(&i2c_bus, &at42qt2120, 400000, 1000);
+at42qt2120_init(i2c_bus, &at42qt2120, 100000, 1000);
 ```
 
 ### Reading Detection Status
@@ -40,10 +40,10 @@ uint8_t position;
 at42qt2120_read_slider_position(&at42qt2120, &position);
 ```
 
-### Calibration and Reset
+### Reset and Calibration
 ```c
-at42qt2120_calibrate(&at42qt2120);
 at42qt2120_reset(&at42qt2120);
+at42qt2120_calibrate(&at42qt2120);
 ```
 
 ### Enabling/Disabling Slider or Wheel
