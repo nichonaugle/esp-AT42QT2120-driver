@@ -26,7 +26,7 @@ typedef struct {
  * @param time_out Time in ms to wait for I2C response. -1 results in infinite wait time
  * @return esp_err_t ESP_OK on success, otherwise an error code.
  */
-esp_err_t at42qt2120_init(i2c_master_bus_handle_t* bus_handle, at42qt2120_handle_t* at42qt2120_handle, size_t clock_speed, int time_out);
+esp_err_t at42qt2120_init(i2c_master_bus_handle_t bus_handle, at42qt2120_handle_t* at42qt2120_handle, size_t clock_speed, int time_out);
 
 /**
  * @brief Read a register from the at42qt2120 device.

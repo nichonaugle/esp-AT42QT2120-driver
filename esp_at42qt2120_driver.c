@@ -13,7 +13,7 @@ static const char* TAG = "esp_at42qt2120_driver";
 /**
   * @brief Initializes the AT42QT2120 touch sensor on the I2C bus.
   */
-esp_err_t at42qt2120_init(i2c_master_bus_handle_t* bus_handle, at42qt2120_handle_t* at42qt2120_handle, size_t clock_speed, int time_out) {
+esp_err_t at42qt2120_init(i2c_master_bus_handle_t bus_handle, at42qt2120_handle_t* at42qt2120_handle, size_t clock_speed, int time_out) {
     /* Error checking for input parameters */
     if (at42qt2120_handle == NULL) {
         ESP_LOGE(TAG, "at42qt2120_handle improperly initialized!");
@@ -24,14 +24,14 @@ esp_err_t at42qt2120_init(i2c_master_bus_handle_t* bus_handle, at42qt2120_handle
         ESP_LOGE(TAG, "i2c bus is not initialized correctly");
         return ESP_ERR_INVALID_ARG;
     }
-
+    
     /* Setting up device configuration to add at42qt2120 to i2c bus */
     at42qt2120_handle->device_config.dev_addr_length = I2C_ADDR_BIT_LEN_7;
     at42qt2120_handle->device_config.device_address = AT42QT2120_SLAVE_ADDRESS;
     at42qt2120_handle->device_config.scl_speed_hz = clock_speed;
     at42qt2120_handle->transaction_timeout_ms = time_out;
 
-    esp_err_t ret = i2c_master_bus_add_device(*bus_handle, &at42qt2120_handle->device_config, &at42qt2120_handle->device_handle);
+    esp_err_t ret = i2c_master_bus_add_device(bus_handle, &at42qt2120_handle->device_config, &at42qt2120_handle->device_handle);
     if (ret != ESP_OK)
         ESP_LOGE(TAG, "Failed to add at42qt2120 to i2c bus");
     else
