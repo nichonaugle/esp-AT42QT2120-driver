@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include "driver/i2c_master.h"
-#include "esp_err.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include <driver/i2c_master.h>
+#include <esp_err.h>
+#include <esp_log.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+
 #include "esp_at42qt2120_driver.h"
 #include "esp_at42qt2120_defines.h"
 
@@ -40,7 +41,11 @@ void app_main(void) {
 
     /* Initalize at42qt2120 device handle */
     at42qt2120_handle_t Slider_Handle;
-    at42qt2120_init(&I2C_Handle, &Slider_Handle, 100000, -1);
+    esp_err_t ret = at42qt2120_init(I2C_Handle, &Slider_Handle, 100000, -1);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to initialize device, exiting main");
+        return;
+    }
 
     /* Reset Slider */
     ESP_LOGI(TAG, "Reseting ....");

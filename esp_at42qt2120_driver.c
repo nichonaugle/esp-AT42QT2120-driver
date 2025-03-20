@@ -1,6 +1,7 @@
 #include <driver/i2c_master.h>
 #include <esp_err.h>
 #include <esp_log.h>
+#include <esp_check.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
@@ -13,30 +14,34 @@ static const char* TAG = "esp_at42qt2120_driver";
   * @brief Initializes the AT42QT2120 touch sensor on the I2C bus.
   */
 esp_err_t at42qt2120_init(i2c_master_bus_handle_t bus_handle, at42qt2120_handle_t* at42qt2120_handle, size_t clock_speed, int time_out) {
-    /* Error checking for input parameters */
-    if (at42qt2120_handle == NULL) {
-        ESP_LOGE(TAG, "at42qt2120_handle improperly initialized!");
-        return ESP_ERR_INVALID_ARG;
-    }
+    /* Error checking for input parameters and check if device is connected to the i2c bus*/
+    ESP_RETURN_ON_FALSE(at42qt2120_handle != NULL, ESP_ERR_INVALID_ARG, TAG, "at42qt2120_handle is NULL!");
+    ESP_RETURN_ON_FALSE(bus_handle != NULL, ESP_ERR_INVALID_ARG, TAG, "i2c bus is NULL!");
+    ESP_RETURN_ON_ERROR(i2c_master_probe(bus_handle, AT42QT2120_SLAVE_ADDRESS, time_out), TAG, "at42qt2120 device is not connected to the i2c bus");
 
-    if (bus_handle == NULL) {
-        ESP_LOGE(TAG, "i2c bus is not initialized correctly");
-        return ESP_ERR_INVALID_ARG;
-    }
-    
     /* Setting up device configuration to add at42qt2120 to i2c bus */
     at42qt2120_handle->device_config.dev_addr_length = I2C_ADDR_BIT_LEN_7;
     at42qt2120_handle->device_config.device_address = AT42QT2120_SLAVE_ADDRESS;
     at42qt2120_handle->device_config.scl_speed_hz = clock_speed;
     at42qt2120_handle->transaction_timeout_ms = time_out;
+    
+    ESP_RETURN_ON_ERROR(i2c_master_bus_add_device(bus_handle, &at42qt2120_handle->device_config, &at42qt2120_handle->device_handle), TAG, "Failed to add at42qt2120 to i2c bus");
+    
+    ESP_LOGI(TAG, "Added at42qt2120 to i2c bus.");
+    return ESP_OK;
+}
 
-    esp_err_t ret = i2c_master_bus_add_device(bus_handle, &at42qt2120_handle->device_config, &at42qt2120_handle->device_handle);
-    if (ret != ESP_OK)
-        ESP_LOGE(TAG, "Failed to add at42qt2120 to i2c bus");
-    else
-        ESP_LOGI(TAG, "Added at42qt2120 to i2c bus.");
+/**
+  * @brief Deinitializes the AT42QT2120 touch sensor from the I2C bus.
+  */
+ esp_err_t at42qt2120_deinit(at42qt2120_handle_t* at42qt2120_handle) {
+    /* Error checking for input parameters */
+    ESP_RETURN_ON_FALSE(at42qt2120_handle != NULL, ESP_ERR_INVALID_ARG, TAG, "at42qt2120_handle is NULL!");
 
-    return ret;
+    ESP_RETURN_ON_ERROR(i2c_master_bus_rm_device(at42qt2120_handle->device_handle), TAG, "Failed to removed at42qt2120 from i2c bus");
+    
+    ESP_LOGI(TAG, "Removed at42qt2120 from i2c bus.");
+    return ESP_OK;
 }
 
 /* Basic Read and Write functions for at42at2120 */

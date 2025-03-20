@@ -20,12 +20,18 @@ For detailed specifications and register descriptions, refer to the [AT42QT2120 
 
 ## Usage
 ### Initialization
-To initialize the AT42QT2120, call the `at42qt2120_init()` function with the I2C bus handle and device configuration parameters.
+To initialize the AT42QT2120, call the `at42qt2120_init()` function with the I2C bus handle and at42qt2120_handle_t to return.
 
 ```c
 at42qt2120_handle_t at42qt2120;
 i2c_master_bus_handle_t i2c_bus;
 at42qt2120_init(i2c_bus, &at42qt2120, 100000, 1000);
+```
+
+### Deinitialization
+To deinitialize the AT42QT2120, call the `at42qt2120_deinit()` function with the at42qt2120_handle_t to remove.
+```c
+at42qt2120_deinit(&at42qt2120);
 ```
 
 ### Reading Detection Status
