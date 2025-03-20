@@ -77,7 +77,7 @@ esp_err_t at42qt2120_register_write(at42qt2120_handle_t* at42qt2120_handle, uint
 
 /* Specific Register Read/Write functions */
 esp_err_t at42qt2120_read_detection_status(at42qt2120_handle_t* at42qt2120_handle, uint8_t* status_buf) {
-    esp_err_t ret = at42qt2120_register_read(at42qt2120_handle, AT42QT2120_REG_SLIDER_POSITION, status_buf, 1);
+    esp_err_t ret = at42qt2120_register_read(at42qt2120_handle, AT42QT2120_REG_DETECTION_STATUS, status_buf, 1);
     if (ret != ESP_OK) 
         ESP_LOGE(TAG, "Failed to read detection status from at42qt2120 device!");
 
@@ -140,7 +140,7 @@ esp_err_t at42qt2120_disable_slider_wheel(at42qt2120_handle_t* at42qt2120_handle
     uint8_t write_buf = 0x00;
     esp_err_t ret = at42qt2120_register_write(at42qt2120_handle, AT42QT2120_REG_SLIDER_OPTIONS, &write_buf, 1);
     if (ret != ESP_OK) 
-        ESP_LOGE(TAG, "at42qt2120 device failed to enable wheel mode!");
+        ESP_LOGE(TAG, "at42qt2120 device failed to diable slider/wheel mode!");
      
     return ret;
 }
